@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>学习风格MBTI（小学版）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="decor" aria-hidden="true">
+    <span class="bubble-a"></span>
+    <span class="bubble-b"></span>
+    <span class="bubble-c"></span>
+  </div>
+
+  <main class="app-shell">
+    <section id="introScreen" class="screen active">
+      <div class="hero-card">
+        <span class="hero-badge">小学版 · 5 分钟轻量测试</span>
+        <h1 class="hero-title">学习风格MBTI<span class="accent">（小学版）</span></h1>
+        <p class="hero-copy">
+          这不是一本正经的“心理课堂”，更像一份家长能立刻用上的学习陪跑说明书。
+          输入孩子名字，做完 20 道轻量选择题，就能拿到一份更贴近日常学习的风格报告。
+        </p>
+        <div class="hero-strip" aria-hidden="true">
+          <span>20 题快答</span>
+          <span>学生维度建议</span>
+          <span>家长维度建议</span>
+        </div>
+
+        <div class="hero-art-wrap">
+          <img id="heroArt" alt="奥数学习场景插图">
+        </div>
+
+        <div class="name-panel">
+          <label class="field-label" for="studentName">先来个小开场：学生姓名怎么称呼？</label>
+          <p class="field-hint">名字会写进最终报告里，等会儿导出的分享图也会一起带上，仪式感这块安排上。</p>
+          <input id="studentName" class="name-input" type="text" maxlength="18" placeholder="比如：乐乐、小宇、陈同学">
+          <div class="cta-row">
+            <button id="startBtn" class="primary-btn" type="button">开始测试，看看孩子怎么学最顺手</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <article class="mini-note">
+          <strong>会测到什么？</strong>
+          <p>主要看孩子平时的个性、通用学习习惯，再穿插少量奥数场景，尽量让结果更贴近日常陪学而不是只盯着奥数课堂。</p>
+        </article>
+        <article class="mini-note">
+          <strong>适合谁做？</strong>
+          <p>特别适合小学阶段家长，尤其是正准备接触奥数、已经在学奥数，或者最近总在“催与不催之间反复横跳”的家庭。</p>
+        </article>
+        <article class="mini-note">
+          <strong>结果怎么用？</strong>
+          <p>报告会浓缩成学生维度和家长维度两部分建议，读起来更快，也更适合直接保存转发。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="quizScreen" class="screen">
+      <div class="quiz-top">
+        <div class="card progress-card">
+          <div class="progress-meta">
+            <strong id="progressTitle">闯关进行中</strong>
+            <span id="progressCount">1 / 20</span>
+          </div>
+          <div class="progress-bar" aria-hidden="true">
+            <span id="progressFill"></span>
+          </div>
+          <p id="progressCopy" class="progress-copy">前面几题先热身，后面更像“家长视角下的日常名场面”。</p>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="question-art">
+          <img id="questionArt" alt="题目卡通插图">
+        </div>
+        <div class="small-badge" id="dimensionTag">当前观察：学习启动</div>
+        <h2 id="questionTitle" class="question-title"></h2>
+        <p id="questionSub" class="question-sub"></p>
+        <div id="optionsWrap" class="options"></div>
+      </article>
+    </section>
+
+    <section id="resultScreen" class="screen">
+      <article id="reportCard" class="report-card">
+        <div class="report-hero">
+          <div class="report-topline">
+            <span id="resultBadge" class="hero-badge">学习风格报告已生成</span>
+            <span id="resultSticker" class="small-badge">家长陪学建议版</span>
+          </div>
+          <p id="reportName" class="report-name"></p>
+          <h2 id="reportType" class="report-type"></h2>
+          <p id="reportSummary" class="report-summary"></p>
+          <div class="report-art">
+            <img id="resultArt" alt="学习风格角色插图">
+          </div>
+        </div>
+
+        <div class="report-body">
+          <section class="section-block">
+            <h3>孩子在学习里，大概会怎么发光</h3>
+            <p id="reportSpark"></p>
+          </section>
+
+          <section class="section-block">
+            <h3>四个维度小雷达</h3>
+            <div id="dimensionWrap" class="dimensions"></div>
+          </section>
+
+          <section class="section-block">
+            <h3>学生维度</h3>
+            <ul id="studentAdvice" class="list-chip"></ul>
+          </section>
+
+          <section class="section-block">
+            <h3>家长维度</h3>
+            <ul id="parentAdvice" class="list-chip"></ul>
+          </section>
+        </div>
+      </article>
+
+      <div class="result-actions">
+        <button id="downloadBtn" class="primary-btn" type="button">一键生成报告图片</button>
+        <button id="restartBtn" class="ghost-btn" type="button">重新测试一次</button>
+      </div>
+      <div id="statusText" class="status-text"></div>
+      <p class="save-note">如果在微信里没有自动下载，也别慌，系统会弹出预览图，长按保存就行。</p>
+    </section>
+  </main>
+
+  <div id="previewModal" class="preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+    <div class="preview-panel">
+      <h3 id="previewTitle">海报图片已经准备好</h3>
+      <p>可以直接下载；如果是在微信里，长按下方图片保存到相册，再随手转发就行。</p>
+      <div class="preview-image-wrap">
+        <img id="previewImage" alt="测试报告导出预览图">
+      </div>
+      <div class="preview-actions">
+        <a id="downloadLink" class="primary-btn" href="#" download="学习风格MBTI-小学版海报.png" role="button" style="display:flex;align-items:center;justify-content:center;text-decoration:none;">下载这张图片</a>
+        <button id="closePreviewBtn" class="ghost-btn" type="button">关闭预览</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

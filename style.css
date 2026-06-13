@@ -1,0 +1,935 @@
+/* ============================================================
+   学习风格MBTI（小学版）— 样式表
+   设计方向：温暖编辑部杂志感 · 暖琥珀 × 奶油基底
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. 设计令牌
+   ------------------------------------------------------------ */
+:root {
+  --max-w: 456px;
+
+  /* 背景 */
+  --bg: #faf7f0;
+  --bg-card: #ffffff;
+  --bg-soft: rgba(255, 252, 246, 0.92);
+
+  /* 文字 */
+  --ink: #2d2218;
+  --ink-soft: #7a6b5a;
+  --ink-muted: #a89882;
+
+  /* 强调色 */
+  --amber: #b8753e;
+  --amber-deep: #945a2a;
+  --amber-light: #d4a974;
+
+  /* 辅助 */
+  --sage: #889e8b;
+  --sky: #8899a8;
+  --mauve: #9a8790;
+
+  /* 线条 / 阴影 */
+  --line: rgba(148, 128, 100, 0.14);
+  --shadow-card: 0 2px 16px rgba(60, 40, 20, 0.08);
+  --shadow-hover: 0 6px 24px rgba(60, 40, 20, 0.12);
+
+  /* 圆角 */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 26px;
+
+  /* 字体 */
+  --serif: Georgia, "Times New Roman", "Songti SC", "STZhongsong", serif;
+  --sans: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+  /* 过渡 */
+  --ease: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ------------------------------------------------------------
+   2. 全局重置
+   ------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  padding: 24px 16px 56px;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+h1, h2, h3 { margin: 0; }
+p { margin: 0; }
+button { font-family: inherit; cursor: pointer; }
+input { font-family: inherit; }
+
+/* ------------------------------------------------------------
+   3. 容器 & 屏幕管理
+   ------------------------------------------------------------ */
+.app-shell {
+  width: min(100%, var(--max-w));
+  margin: 0 auto;
+}
+
+.screen { display: none; }
+.screen.active { display: block; animation: riseIn 0.45s var(--ease); }
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------
+   4. 通用卡片
+   ------------------------------------------------------------ */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--line);
+}
+
+/* ------------------------------------------------------------
+   5. 首页 — Hero Card
+   ------------------------------------------------------------ */
+.hero-card {
+  background: var(--bg-card);
+  border-radius: var(--r-xl);
+  padding: 32px 22px 22px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--amber), var(--amber-light), var(--sage));
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber-deep);
+  background: rgba(180, 120, 60, 0.1);
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.small-badge {
+  display: inline-block;
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sage);
+  background: rgba(136, 158, 139, 0.1);
+  border-radius: 14px;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin: 14px 0 10px;
+  letter-spacing: 0.5px;
+}
+
+.hero-title .accent {
+  color: var(--amber);
+  font-style: italic;
+}
+
+.hero-copy {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+/* 标签条 */
+.hero-strip {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.hero-strip span {
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: rgba(120, 100, 75, 0.07);
+  border-radius: 8px;
+  letter-spacing: 0.3px;
+}
+
+/* 首页插图 */
+.hero-art-wrap {
+  margin: 12px 0 8px;
+}
+
+.hero-art-wrap img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: var(--r-md);
+  background: rgba(240, 232, 218, 0.5);
+}
+
+/* ------------------------------------------------------------
+   6. 姓名输入区
+   ------------------------------------------------------------ */
+.name-panel {
+  margin-top: 16px;
+}
+
+.field-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.field-hint {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.name-input:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(180, 120, 60, 0.12);
+}
+
+.name-input::placeholder {
+  color: var(--ink-muted);
+}
+
+.cta-row {
+  margin-top: 14px;
+}
+
+.cta-row .primary-btn {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------
+   7. 首页信息卡片
+   ------------------------------------------------------------ */
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.mini-note {
+  background: var(--bg-card);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+}
+
+.mini-note strong {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  font-family: var(--serif);
+}
+
+.mini-note p { margin: 0; }
+
+/* ------------------------------------------------------------
+   8. 按钮系统
+   ------------------------------------------------------------ */
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--amber-deep), var(--amber));
+  border: none;
+  border-radius: var(--r-md);
+  letter-spacing: 0.4px;
+  transition: transform var(--ease), box-shadow var(--ease), opacity var(--ease);
+  box-shadow: 0 4px 14px rgba(148, 90, 42, 0.25);
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(148, 90, 42, 0.35);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(148, 90, 42, 0.2);
+}
+
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--bg-card);
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  transition: border-color var(--ease), color var(--ease), transform var(--ease);
+}
+
+.ghost-btn:hover {
+  border-color: var(--amber-light);
+  color: var(--amber);
+  transform: translateY(-1px);
+}
+
+/* 选项按钮（答题用） */
+.option-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 15px;
+  text-align: left;
+  color: var(--ink);
+  background: var(--bg-card);
+  border: 2px solid var(--line);
+  border-radius: var(--r-md);
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+  position: relative;
+}
+
+.option-btn strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.option-btn span {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.option-btn:hover {
+  border-color: var(--amber-light);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.option-btn:active {
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------
+   9. 答题区
+   ------------------------------------------------------------ */
+.quiz-top {
+  margin-bottom: 16px;
+}
+
+/* 进度卡片 */
+.progress-card {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  padding: 18px 20px 14px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--line);
+}
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.progress-meta strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  font-family: var(--serif);
+}
+
+.progress-meta span {
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* 进度条 */
+.progress-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(180, 160, 120, 0.15);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar span,
+.progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--sage), var(--amber-light), var(--amber));
+  transition: width 0.4s var(--ease);
+}
+
+.progress-copy {
+  font-size: 13px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* 题目插图 */
+.question-art {
+  margin-bottom: 8px;
+}
+
+.question-art img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: var(--r-md);
+  background: rgba(240, 232, 218, 0.5);
+}
+
+/* 题目文字 */
+.question-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+  margin: 8px 0 4px;
+}
+
+.question-sub {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+/* 选项容器 */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ------------------------------------------------------------
+   10. 报告页
+   ------------------------------------------------------------ */
+.report-card {
+  animation: riseIn 0.5s var(--ease);
+}
+
+.report-hero {
+  background: var(--bg-card);
+  border-radius: var(--r-xl);
+  padding: 28px 20px 18px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.report-hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--amber), var(--amber-light), var(--sage));
+}
+
+.report-topline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.report-name {
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+  font-family: var(--serif);
+  letter-spacing: 0.4px;
+}
+
+.report-type {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.report-summary {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* 报告页形象图 */
+.report-art {
+  margin: 0 -4px;
+}
+
+.report-art img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: var(--r-md);
+  background: rgba(240, 232, 218, 0.5);
+}
+
+/* 报告正文区 */
+.report-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* 报告区块 */
+.section-block {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  padding: 22px 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--line);
+}
+
+.section-block h3 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: 0.4px;
+}
+
+.section-block p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+/* 报告建议列表 */
+.list-chip {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-chip li {
+  position: relative;
+  padding: 12px 14px 12px 30px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: rgba(240, 232, 218, 0.4);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+}
+
+.list-chip li::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 18px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+
+/* ------------------------------------------------------------
+   11. 四维雷达图
+   ------------------------------------------------------------ */
+.dimensions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dimension-row header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.dimension-row header strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  font-family: var(--serif);
+}
+
+.dimension-row header span {
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.dimension-meter {
+  height: 22px;
+  display: flex;
+  border-radius: 11px;
+  overflow: hidden;
+  background: rgba(180, 160, 120, 0.12);
+  position: relative;
+}
+
+.dimension-side {
+  height: 100%;
+  flex: none;
+  transition: width 0.5s var(--ease);
+}
+
+.dimension-side.left {
+  background: linear-gradient(90deg, #889e8b, #9fb3a2);
+  border-radius: 11px 0 0 11px;
+}
+
+.dimension-side.right {
+  background: linear-gradient(90deg, #c49a6c, #b8753e);
+  border-radius: 0 11px 11px 0;
+}
+
+.dimension-divider {
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.dimension-row footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.dimension-row footer span {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+/* ------------------------------------------------------------
+   12. 结果页操作区
+   ------------------------------------------------------------ */
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.result-actions .primary-btn {
+  width: 100%;
+}
+
+.status-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  min-height: 22px;
+}
+
+.save-note {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------
+   13. 预览弹窗
+   ------------------------------------------------------------ */
+.preview-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(30, 20, 10, 0.65);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.preview-modal.show {
+  display: flex;
+  animation: fadeIn 0.25s var(--ease);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.preview-panel {
+  background: var(--bg-card);
+  border-radius: var(--r-xl);
+  padding: 24px 20px;
+  width: min(100%, 420px);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(30, 20, 10, 0.3);
+  border: 1px solid var(--line);
+}
+
+.preview-panel h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.preview-panel > p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.preview-image-wrap {
+  width: 100%;
+  max-height: 56vh;
+  overflow: auto;
+  border-radius: var(--r-md);
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.preview-image-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.preview-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.preview-actions .primary-btn {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------
+   14. Toast 提示
+   ------------------------------------------------------------ */
+.toast {
+  display: none;
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--ink);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(30, 20, 10, 0.25);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.toast.show {
+  display: block;
+  animation: toastIn 0.3s var(--ease);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ------------------------------------------------------------
+   15. 装饰气泡
+   ------------------------------------------------------------ */
+.decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bubble-a,
+.bubble-b,
+.bubble-c {
+  position: fixed;
+  border-radius: 50%;
+  opacity: 0.08;
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 0;
+  background: var(--amber-light);
+  animation: floatBubble 8s ease-in-out infinite;
+}
+
+.bubble-a {
+  width: 240px;
+  height: 240px;
+  top: -80px;
+  left: -60px;
+}
+
+.bubble-b {
+  width: 180px;
+  height: 180px;
+  top: 22%;
+  right: -50px;
+  animation-delay: 2.8s;
+  background: var(--sage);
+  opacity: 0.06;
+}
+
+.bubble-c {
+  width: 280px;
+  height: 280px;
+  bottom: -100px;
+  left: 20%;
+  animation-delay: 5.2s;
+  background: var(--sky);
+  opacity: 0.06;
+}
+
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-20px) scale(1.04); }
+}
+
+/* ------------------------------------------------------------
+   16. 响应式
+   ------------------------------------------------------------ */
+@media (max-width: 420px) {
+  body {
+    padding: 16px 10px 40px;
+    font-size: 15px;
+  }
+
+  .hero-card {
+    padding: 24px 16px 18px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .report-type {
+    font-size: 26px;
+  }
+
+  .card {
+    padding: 18px 16px;
+  }
+
+  .section-block {
+    padding: 18px 16px;
+  }
+
+  .name-input {
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .primary-btn,
+  .ghost-btn {
+    min-height: 48px;
+    font-size: 15px;
+    padding: 0 22px;
+  }
+
+  .option-btn {
+    padding: 14px 16px;
+  }
+
+  .preview-panel {
+    padding: 18px 16px;
+  }
+}
+
+/* ------------------------------------------------------------
+   17. 打印
+   ------------------------------------------------------------ */
+@media print {
+  body {
+    background: #fff;
+    padding: 0;
+  }
+
+  .decor, .toast, .preview-modal,
+  .result-actions, .status-text, .save-note {
+    display: none !important;
+  }
+}
